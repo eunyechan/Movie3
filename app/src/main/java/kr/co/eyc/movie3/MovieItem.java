@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class MovieItem {
 
-    Boxoffice boxofficeResult;
+    BoxOffice boxOfficeResult;
 }
 
-class Boxoffice{
+class BoxOffice{
     String boxofficeType;
     String showRange;
     ArrayList<DaliyBoxofficeList> daliyBoxofficeList= null;

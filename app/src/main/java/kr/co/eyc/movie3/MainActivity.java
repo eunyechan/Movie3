@@ -38,9 +38,11 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<MovieItem> call, Response<MovieItem> response) {
 //                Toast.makeText(MainActivity.this, "성공", Toast.LENGTH_SHORT).show();
                 MovieItem item= response.body();
-                String typ= item.boxofficeResult.boxofficeType;
+                String typ= item.boxOfficeResult.boxofficeType;
 
-                ArrayList<DaliyBoxofficeList> lists= item.boxofficeResult.daliyBoxofficeList;
+                Toast.makeText(MainActivity.this, typ+"", Toast.LENGTH_SHORT).show();
+
+                ArrayList<DaliyBoxofficeList> lists= item.boxOfficeResult.daliyBoxofficeList;
                 for (DaliyBoxofficeList list: lists){
                     items.add(list);
                     adapter.notifyDataSetChanged();
