@@ -10,7 +10,7 @@ public class MovieItem {
 class BoxOffice{
     String boxofficeType;
     String showRange;
-    ArrayList<DaliyBoxofficeList> daliyBoxofficeList= null;
+    ArrayList<DaliyBoxofficeList> dailyBoxOfficeList= null;
 }
 
 class DaliyBoxofficeList{

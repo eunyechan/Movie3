@@ -1,5 +1,6 @@
 package kr.co.eyc.movie3;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -7,7 +8,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,18 +34,35 @@ public class MainActivity extends AppCompatActivity {
 
         Retrofit retrofit= RetrofitHelper.getData();
         RetrofitService service= retrofit.create(RetrofitService.class);
-        Call<MovieItem> call= service.getData();
+//        Call<String> call =service.getData();
+//
+//        call.enqueue(new Callback<String>() {
+//            @Override
+//            public void onResponse(Call<String> call, Response<String> response) {
+//                Toast.makeText(MainActivity.this, "성공"+response.body(), Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<String> call, Throwable t) {
+//
+//            }
+//        });
+
+        Date date= new Date(); //오늘날짜
+        date.setTime( date.getTime() - (1000*60*60*24) ); //1일전
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMdd"); //날짜를 지정한 패턴으로 만들어줌.
+
+        String dateStr=sdf.format(date);//검색 날짜 "20200526"
+
+
+        Call<MovieItem> call= service.getData(dateStr);
 
         call.enqueue(new Callback<MovieItem>() {
             @Override
             public void onResponse(Call<MovieItem> call, Response<MovieItem> response) {
-//                Toast.makeText(MainActivity.this, "성공", Toast.LENGTH_SHORT).show();
                 MovieItem item= response.body();
-                String typ= item.boxOfficeResult.boxofficeType;
 
-                Toast.makeText(MainActivity.this, typ+"", Toast.LENGTH_SHORT).show();
-
-                ArrayList<DaliyBoxofficeList> lists= item.boxOfficeResult.daliyBoxofficeList;
+                ArrayList<DaliyBoxofficeList> lists= item.boxOfficeResult.dailyBoxOfficeList;
                 for (DaliyBoxofficeList list: lists){
                     items.add(list);
                     adapter.notifyDataSetChanged();
